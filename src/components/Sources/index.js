@@ -4,6 +4,8 @@ import { getSources } from '../../actions/sources'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import SourcesFrame from './SourcesFrame'
 
+import { colors } from '../../themes'
+
 class Sources extends Component {
   componentWillMount () {
     this.props.getSources('business')
@@ -13,7 +15,15 @@ class Sources extends Component {
 
   render () {
     return (
-      <ScrollableTabView>
+      <ScrollableTabView
+        tabBarBackgroundColor={colors.primary.normal}
+        tabBarActiveTextColor='rgba(255,255,255,0.87)'
+        tabBarInactiveTextColor='rgba(255,255,255,0.79)'
+        tabBarUnderlineStyle={{
+          backgroundColor: 'rgba(255,255,255,0.87)',
+          height: 2
+        }}
+      >
         <SourcesFrame
           tabLabel='Business'
           sources={this.props.businessSources}
