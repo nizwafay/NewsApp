@@ -14,30 +14,36 @@ class Sources extends Component {
   }
 
   render () {
+    const {
+      businessSources, businessLoading,
+      politicsSources, politicsLoading,
+      technologySources, technologyLoading
+    } = this.props
+
     return (
       <ScrollableTabView
         tabBarBackgroundColor={colors.primary.normal}
-        tabBarActiveTextColor='rgba(255,255,255,0.87)'
-        tabBarInactiveTextColor='rgba(255,255,255,0.79)'
+        tabBarActiveTextColor={colors.white87}
+        tabBarInactiveTextColor={colors.white79}
         tabBarUnderlineStyle={{
-          backgroundColor: 'rgba(255,255,255,0.87)',
+          backgroundColor: colors.white87,
           height: 2
         }}
       >
         <SourcesFrame
           tabLabel='Business'
-          sources={this.props.businessSources}
-          loading={this.props.businessLoading}
+          sources={businessSources}
+          loading={businessLoading}
         />
         <SourcesFrame
           tabLabel='Politics'
-          sources={this.props.politicsSources}
-          loading={this.props.politicsLoading}
+          sources={politicsSources}
+          loading={politicsLoading}
         />
         <SourcesFrame
           tabLabel='Technology'
-          sources={this.props.technologySources}
-          loading={this.props.technologyLoading}
+          sources={technologySources}
+          loading={technologyLoading}
         />
       </ScrollableTabView>
     )
@@ -48,14 +54,18 @@ Sources.navigationOptions = {
   title: 'News App'
 }
 
-function mapStateToProps (state) {
+function mapStateToProps ({
+  businessSources, businessLoading,
+  politicsSources, politicsLoading,
+  technologySources, technologyLoading
+}) {
   return {
-    businessSources: state.businessSources.sources,
-    businessLoading: state.businessSources.loading,
-    politicsSources: state.politicsSources.sources,
-    politicsLoading: state.politicsSources.loading,
-    technologySources: state.technologySources.sources,
-    technologyLoading: state.technologySources.loading
+    businessSources: businessSources.sources,
+    businessLoading: businessSources.loading,
+    politicsSources: politicsSources.sources,
+    politicsLoading: politicsSources.loading,
+    technologySources: technologySources.sources,
+    technologyLoading: technologySources.loading
   }
 }
 
