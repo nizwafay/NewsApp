@@ -13,7 +13,10 @@ class SourceBox extends Component {
       return {marginLeft: 4}
     }
     return (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity
+        onPress={onPress}
+        activeOpacity={0.79}
+      >
         <View
           style={[margin(), {
             backgroundColor: '#FFFFFF',
