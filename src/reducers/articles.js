@@ -1,11 +1,11 @@
 import {
   GET_ARTICLES,
-  GET_ARTICLES_SUCCESS
+  GET_ARTICLES_SUCCESS,
+  GET_ARTICLES_FAILED
 } from '../actions/types'
 
 const INITIAL_STATE = {
   articles: [],
-  error: '',
   loading: false
 }
 
@@ -20,6 +20,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...INITIAL_STATE,
         articles: action.articles
+      }
+    case GET_ARTICLES_FAILED:
+      return {
+        ...INITIAL_STATE,
+        loading: false
       }
     default:
       return state

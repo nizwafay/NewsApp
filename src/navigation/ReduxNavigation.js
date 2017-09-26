@@ -1,5 +1,5 @@
 import React from 'react'
-import { BackHandler } from 'react-native'
+import { BackHandler, ToastAndroid } from 'react-native'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import AppNavigation from './AppNavigation'
@@ -11,6 +11,12 @@ class ReduxNavigation extends React.Component {
 
   componentWillUnmount () {
     BackHandler.removeEventListener('hardwareBackPress', this.onBackPress.bind(this))
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.error !== '') {
+      ToastAndroid.show(nextProps.error, ToastAndroid.SHORT)
+    }
   }
 
   onBackPress () {
@@ -33,5 +39,8 @@ class ReduxNavigation extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ nav: state.nav })
+const mapStateToProps = state => ({
+  nav: state.nav,
+  error: state.error.error
+})
 export default connect(mapStateToProps)(ReduxNavigation)

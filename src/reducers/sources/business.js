@@ -1,12 +1,10 @@
 import {
   GET_SOURCES,
-  GET_SOURCES_SUCCESS,
-  GET_SOURCES_FAILED
+  GET_SOURCES_SUCCESS
 } from '../../actions/types'
 
 const INITIAL_STATE = {
   sources: [],
-  error: '',
   loading: false
 }
 

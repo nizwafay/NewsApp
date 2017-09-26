@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import navigation from './navigation'
+import error from './error'
 import articles from './articles'
 import businessSources from './sources/business'
 import politicsSources from './sources/politics'
@@ -10,5 +11,6 @@ export default combineReducers({
   politicsSources,
   technologySources,
   articles,
-  nav: navigation
+  nav: navigation,
+  error
 })

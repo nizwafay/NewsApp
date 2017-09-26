@@ -6,7 +6,6 @@ import {
 
 const INITIAL_STATE = {
   sources: [],
-  error: '',
   loading: false
 }
 
@@ -22,6 +21,11 @@ export default (state = INITIAL_STATE, action) => {
         return {
           ...INITIAL_STATE,
           sources: action.sources
+        }
+      case GET_SOURCES_FAILED:
+        return {
+          ...INITIAL_STATE,
+          loading: false
         }
       default:
         return state
