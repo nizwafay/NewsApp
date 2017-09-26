@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, Text, View, Image, Dimensions } from 'react-native'
+import { TouchableNativeFeedback, Text, View, Image, Dimensions } from 'react-native'
 import {
   convertDayToString,
   convertMonthToString
@@ -19,23 +19,24 @@ export default class ArticleBox extends Component {
       return '' + convertDayToString(timeParsed.getDay()) + ', ' + timeParsed.getDate() + ' ' + convertMonthToString(timeParsed.getMonth()) + ' ' + timeParsed.getFullYear()
     }
     return (
-      <TouchableOpacity
-        style={{ backgroundColor: '#FFFFFF', padding: 8 }}
+      <TouchableNativeFeedback
         onPress={onPress}
       >
-        <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#000000' }}>{title}</Text>
-        <Text style={{ fontSize: 10 }}>{time()}</Text>
-        <View style={{ flexDirection: 'row', marginTop: 4 }}>
-          <Image
-            style={{ width: imageWidth, height: imageHeigth, marginRight: 8 }}
-            resizeMode='cover'
-            source={{uri: urlToImage}}
-          />
-          <View style={{ flex: 1 }}>
-            <Text numberOfLines={6}>{description}</Text>
+        <View style={{ backgroundColor: '#FFFFFF', padding: 8 }}>
+          <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#000000' }}>{title}</Text>
+          <Text style={{ fontSize: 10 }}>{time()}</Text>
+          <View style={{ flexDirection: 'row', marginTop: 4 }}>
+            <Image
+              style={{ width: imageWidth, height: imageHeigth, marginRight: 8 }}
+              resizeMode='cover'
+              source={{uri: urlToImage}}
+            />
+            <View style={{ flex: 1 }}>
+              <Text numberOfLines={6}>{description}</Text>
+            </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableNativeFeedback>
     )
   }
 }
