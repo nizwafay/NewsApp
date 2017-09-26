@@ -11,8 +11,7 @@ const applicationStyles = {
   statusBar: colors.primary.dark,
   navigator: {
     backgroundColor: colors.primary.normal,
-    fontColor: colors.white,
-    fontOpacity: 0.87
+    fontColor: colors.white87
   }
 }
 

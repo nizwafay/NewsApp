@@ -15,10 +15,9 @@ const PrimaryNav = StackNavigator({
     },
     headerTitleStyle: {
       alignSelf: 'center',
-      color: applicationStyles.navigator.fontColor,
-      opacity: applicationStyles.navigator.fontOpacity
+      color: applicationStyles.navigator.fontColor
     },
-    headerTintColor: colors.white
+    headerTintColor: colors.white100
   },
   initialRouteName: 'SourcesScreen'
 })
