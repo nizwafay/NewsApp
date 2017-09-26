@@ -1,10 +1,8 @@
-import {create} from 'apisauce'
 import {
   GET_SOURCES,
   GET_SOURCES_SUCCESS
 } from './types'
-
-const api = create({baseURL: 'https://newsapi.org/v1'})
+import { api } from '../config'
 
 export const getSources = (category) => {
   return (dispatch) => {
