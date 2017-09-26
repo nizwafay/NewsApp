@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TextInput, Image, TouchableOpacity, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
 import { Header } from 'react-navigation'
 import R from 'ramda'
@@ -8,7 +8,6 @@ import { getArticles } from '../../actions/articles'
 
 import WebView from './WebView'
 import ArticleBox from './ArticleBox'
-import Loading from '../common/Loading'
 import { colors } from '../../themes'
 
 class ListArticles extends Component {
@@ -23,6 +22,10 @@ class ListArticles extends Component {
   }
 
   componentWillMount () {
+    this.props.getArticles(this.props.navigation.state.params.sourceId)
+  }
+
+  _onRefresh () {
     this.props.getArticles(this.props.navigation.state.params.sourceId)
   }
 
@@ -51,16 +54,6 @@ class ListArticles extends Component {
         item={item}
       />
     )
-  }
-
-  renderLoading () {
-    if (this.props.loading) {
-      return (
-        <View style={{ marginTop: 8 }}>
-          <Loading />
-        </View>
-      )
-    }
   }
 
   renderSeparator () {
@@ -105,7 +98,13 @@ class ListArticles extends Component {
           </View>
           <TouchableOpacity
             style={{ alignItems: 'center', justifyContent: 'center', padding: 16 }}
-            onPress={() => this.setState({ searchText: '' })}
+            onPress={() => {
+              if (this.state.searchText === '') {
+                this.setState({ showSearchField: false })
+              } else {
+                this.setState({ searchText: '' })
+              }
+            }}
           >
             <Image
               style={{ height: 18, width: 18 }}
@@ -149,8 +148,15 @@ class ListArticles extends Component {
           url={this.state.selectedUrl}
         />
         {this.renderSearch()}
-        {this.renderLoading()}
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={this.props.loading}
+              onRefresh={this._onRefresh.bind(this)}
+              colors={[colors.primary.dark]}
+              progressBackgroundColor={colors.white}
+            />
+          }
           ItemSeparatorComponent={() => this.renderSeparator()}
           ListHeaderComponent={() => this.renderSearchResult()}
           ListFooterComponent={() => this.renderSeparator()}
