@@ -45,3 +45,17 @@ export const convertMonthToString = (month) => {
       return 'December'
   }
 }
+
+export const haveWords = (string, words) => {
+  words = words.toLowerCase()
+
+  if (words === '') return true
+
+  let title = string.toLowerCase()
+  for (let i = 0; i < title.length - (words.length - 1); i++) {
+    if (title.substr(i, words.length) === words) return true
+    continue
+  }
+
+  return false
+}
