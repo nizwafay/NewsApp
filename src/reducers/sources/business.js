@@ -1,7 +1,7 @@
 import {
   GET_SOURCES,
   GET_SOURCES_SUCCESS,
-  GET_SOURCES_FAILED
+  ERROR_THROWN
 } from '../../actions/types'
 
 const INITIAL_STATE = {
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-  if (action.type === GET_SOURCES_FAILED) {
+  if (action.type === ERROR_THROWN) {
     return {
       ...INITIAL_STATE,
       loading: false

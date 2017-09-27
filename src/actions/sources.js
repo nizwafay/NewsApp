@@ -1,12 +1,12 @@
 import {
   GET_SOURCES,
-  GET_SOURCES_SUCCESS,
-  GET_SOURCES_FAILED
+  GET_SOURCES_SUCCESS
 } from './types'
+import { throwError } from './error'
 import { api } from '../config'
 
 export const getSources = (category) => {
-  return (dispatch) => {
+  return (dispatch, action) => {
     dispatch({
       type: GET_SOURCES,
       category
@@ -17,10 +17,7 @@ export const getSources = (category) => {
         if (response.ok) {
           getSourcesSuccess(dispatch, response, category)
         } else if (response.problem) {
-          dispatch({
-            type: GET_SOURCES_FAILED,
-            problem: response.problem
-          })
+          dispatch(throwError(response.problem, action))
         }
       })
   }

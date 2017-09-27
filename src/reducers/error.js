@@ -1,31 +1,28 @@
 import {
-  GET_ARTICLES,
-  GET_SOURCES,
-  GET_ARTICLES_FAILED,
-  GET_SOURCES_FAILED
+  ERROR_THROWN,
+  ERROR_CLEAR,
+  ERROR_RETRY
 } from '../actions/types'
 
 const INITIAL_STATE = {
-  error: ''
+  error: '',
+  actions: []
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case GET_ARTICLES:
+    case ERROR_THROWN:
       return {
-        error: ''
+        ...state,
+        error: action.error,
+        actions: [...state.actions, action.action]
       }
-    case GET_ARTICLES_FAILED:
+    case ERROR_CLEAR:
+    case ERROR_RETRY:
       return {
-        error: action.problem
-      }
-    case GET_SOURCES:
-      return {
-        error: ''
-      }
-    case GET_SOURCES_FAILED:
-      return {
-        error: action.problem
+        ...state,
+        error: '',
+        actions: []
       }
     default:
       return state
