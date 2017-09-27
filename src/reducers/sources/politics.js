@@ -10,7 +10,12 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-  if (action.category === 'politics') {
+  if (action.type === GET_SOURCES_FAILED) {
+    return {
+      ...INITIAL_STATE,
+      loading: false
+    }
+  } else if (action.category === 'politics') {
     switch (action.type) {
       case GET_SOURCES:
         return {
@@ -21,11 +26,6 @@ export default (state = INITIAL_STATE, action) => {
         return {
           ...INITIAL_STATE,
           sources: action.sources
-        }
-      case GET_SOURCES_FAILED:
-        return {
-          ...INITIAL_STATE,
-          loading: false
         }
       default:
         return state
