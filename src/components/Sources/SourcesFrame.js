@@ -37,6 +37,7 @@ class SourcesFrame extends Component {
       <View style={applicationStyles.container}>
         {this.renderLoading()}
         <FlatList
+          style={{ alignSelf: 'flex-start' }}
           ItemSeparatorComponent={() => this.renderSeparator()}
           ListHeaderComponent={() => this.renderSeparator()}
           ListFooterComponent={() => this.renderSeparator()}
