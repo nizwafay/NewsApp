@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { View, FlatList, RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import R from 'ramda'
 
 import { getArticles } from '../../actions/articles'
 
-import WebView from './WebView'
 import ArticleBox from './ArticleBox'
 import SearchArea from './SearchArea'
 import SearchResult from './SearchResult'
@@ -17,7 +17,6 @@ class ListArticles extends Component {
   constructor () {
     super()
     this.state = {
-      showWebView: false,
       showSearchField: false,
       searchText: '',
       articles: []
@@ -48,12 +47,7 @@ class ListArticles extends Component {
   renderRow ({ item }) {
     return (
       <ArticleBox
-        onPress={() => {
-          this.setState({
-            selectedUrl: item.url,
-            showWebView: true
-          })
-        }}
+        onPress={() => this.props.webViewScreen(item.url)}
         item={item}
       />
     )
@@ -114,15 +108,10 @@ class ListArticles extends Component {
   }
 
   render () {
-    const { showWebView, selectedUrl, articles } = this.state
+    const { articles } = this.state
 
     return (
       <View style={{ flex: 1, backgroundColor: 'rgb(220, 220, 220)' }}>
-        <WebView
-          visible={showWebView}
-          onRequestClose={() => this.setState({ showWebView: false })}
-          url={selectedUrl}
-        />
         {this.renderSearch()}
         <FlatList
           ref='flatList'
@@ -157,7 +146,12 @@ function mapStateToProps ({ articles }) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getArticles: (sourceId) => dispatch(getArticles(sourceId))
+    getArticles: (sourceId) => dispatch(getArticles(sourceId)),
+    webViewScreen: (uri) =>
+      dispatch(NavigationActions.navigate({
+        routeName: 'WebViewScreen',
+        params: { uri }
+      }))
   }
 }
 
