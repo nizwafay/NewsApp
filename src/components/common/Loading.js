@@ -8,6 +8,7 @@ class Loading extends Component {
       <ActivityIndicator
         size={this.props.size || 'large'}
         color={colors.primary.dark}
+        style={this.props.style}
       />
     )
   }

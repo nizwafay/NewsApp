@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
-import { View, WebView, Text, ToastAndroid } from 'react-native'
+import { View, WebView, ToastAndroid } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
 import Loading from '../common/Loading'
 
-import { applicationStyles } from '../../themes'
-
 class WebViewScreen extends Component {
+  constructor () {
+    super()
+    this.state = {
+      loading: true
+    }
+  }
+
   renderLoading () {
-    return (
-      <View style={applicationStyles.container}>
-        <Loading size={100} />
-        <Text style={{ marginTop: 12 }}>
-          Loading ...
-        </Text>
-      </View>
-    )
+    if (this.state.loading) {
+      return (
+        <Loading
+          size='small'
+          style={{ marginVertical: 4 }}
+        />
+      )
+    }
   }
 
   render () {
@@ -23,15 +28,19 @@ class WebViewScreen extends Component {
     const { uri } = navigation.state.params
 
     return (
-      <WebView
-        source={{uri}}
-        renderLoading={this.renderLoading}
-        onError={() => {
-          this.props.navigation.dispatch(NavigationActions.back())
-          ToastAndroid.show('Error occured when open link.', ToastAndroid.SHORT)
-        }}
-        startInLoadingState
-      />
+      <View style={{ flex: 1 }}>
+        <WebView
+          style={{ flex: 1 }}
+          source={{uri}}
+          onLoadStart={() => this.setState({ loading: true })}
+          onLoad={() => this.setState({ loading: false })}
+          onError={() => {
+            this.props.navigation.dispatch(NavigationActions.back())
+            ToastAndroid.show('Error occured when open link.', ToastAndroid.SHORT)
+          }}
+        />
+        {this.renderLoading()}
+      </View>
     )
   }
 }
