@@ -1,12 +1,14 @@
 import { StackNavigator } from 'react-navigation'
 import ListArticles from '../components/ListArticles'
 import Sources from '../components/Sources'
+import WebViewScreen from '../components/WebViewScreen'
 import { applicationStyles, colors } from '../themes'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
   SourcesScreen: { screen: Sources },
-  ListArticlesScreen: { screen: ListArticles }
+  ListArticlesScreen: { screen: ListArticles },
+  WebViewScreen: { screen: WebViewScreen }
 }, {
   // Default config for all screens
   navigationOptions: {
@@ -19,7 +21,8 @@ const PrimaryNav = StackNavigator({
     },
     headerTintColor: colors.white100
   },
-  initialRouteName: 'SourcesScreen'
+  initialRouteName: 'SourcesScreen',
+  headerMode: 'screen'
 })
 
 export default PrimaryNav
