@@ -27,7 +27,7 @@ class WebViewScreen extends Component {
         source={{uri}}
         renderLoading={this.renderLoading}
         onError={() => {
-          NavigationActions.back()
+          this.props.navigation.dispatch(NavigationActions.back())
           ToastAndroid.show('Error occured when open link.', ToastAndroid.SHORT)
         }}
         startInLoadingState

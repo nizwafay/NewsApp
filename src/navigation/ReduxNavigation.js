@@ -3,6 +3,7 @@ import { BackHandler, Alert } from 'react-native'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import AppNavigation from './AppNavigation'
+import { clearError, retryError } from '../actions/error'
 
 class ReduxNavigation extends React.Component {
   componentDidMount () {
@@ -14,13 +15,21 @@ class ReduxNavigation extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.error !== '') {
+    if (nextProps.error !== null) {
       Alert.alert(
         null,
-        nextProps.error,
+        nextProps.error.error,
         [
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-          {text: 'OK', onPress: () => console.log('OK Pressed')}
+          {
+            text: 'Back',
+            onPress: () => {
+              this.props.clearError()
+              if (!this.onBackPress()) {
+                BackHandler.exitApp()
+              }
+            },
+            style: 'cancel'},
+          {text: 'Retry', onPress: () => this.props.retryError(nextProps.error.actions)}
         ],
         { cancelable: false }
       )
@@ -28,11 +37,11 @@ class ReduxNavigation extends React.Component {
   }
 
   onBackPress () {
-    const { dispatch, nav } = this.props
+    const { nav } = this.props
     if (nav.index === 0) {
       return false
     }
-    dispatch(NavigationActions.back())
+    this.props.goBack()
     return true
   };
 
@@ -47,8 +56,22 @@ class ReduxNavigation extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  nav: state.nav,
-  error: state.error.error
-})
-export default connect(mapStateToProps)(ReduxNavigation)
+function mapStateToProps ({ nav, error }) {
+  return {
+    nav,
+    error
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    goBack: () => dispatch(NavigationActions.back()),
+    retryError: (actions) => dispatch(retryError(actions)),
+    clearError: () => dispatch(clearError())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReduxNavigation)

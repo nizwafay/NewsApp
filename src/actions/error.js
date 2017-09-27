@@ -13,8 +13,9 @@ export const clearError = () => ({
   type: ERROR_CLEAR
 })
 
-export const retryError = () => async (dispatch, getState) => {
-  const actions = getState().error.actions
-  actions.forEach(a => dispatch(a))
+export const retryError = (actions) => async (dispatch) => {
+  actions.forEach(a => {
+    dispatch(a)
+  })
   dispatch(clearError())
 }

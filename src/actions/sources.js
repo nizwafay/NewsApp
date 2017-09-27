@@ -17,7 +17,7 @@ export const getSources = (category) => {
         if (response.ok) {
           getSourcesSuccess(dispatch, response, category)
         } else if (response.problem) {
-          dispatch(throwError(response.problem, action))
+          dispatch(throwError(response.problem, getSources(category)))
         }
       })
   }
