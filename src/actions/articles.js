@@ -17,7 +17,7 @@ export const getArticles = (sourceId) => {
         if (response.ok) {
           getSourcesSuccess(dispatch, response)
         } else if (response.problem) {
-          dispatch(throwError(response.problem, action))
+          dispatch(throwError(response.problem, getArticles(sourceId)))
         }
       })
   }

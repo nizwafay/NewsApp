@@ -15,7 +15,7 @@ class ReduxNavigation extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.error !== null) {
+    if (nextProps.error.error !== null) {
       Alert.alert(
         null,
         nextProps.error.error,
@@ -23,13 +23,13 @@ class ReduxNavigation extends React.Component {
           {
             text: 'Back',
             onPress: () => {
-              this.props.clearError()
+              this.props.dispatch(clearError())
               if (!this.onBackPress()) {
                 BackHandler.exitApp()
               }
             },
             style: 'cancel'},
-          {text: 'Retry', onPress: () => this.props.retryError(nextProps.error.actions)}
+          {text: 'Retry', onPress: () => this.props.dispatch(retryError(nextProps.error.actions))}
         ],
         { cancelable: false }
       )
@@ -37,11 +37,11 @@ class ReduxNavigation extends React.Component {
   }
 
   onBackPress () {
-    const { nav } = this.props
+    const { dispatch, nav } = this.props
     if (nav.index === 0) {
       return false
     }
-    this.props.goBack()
+    dispatch(NavigationActions.back())
     return true
   };
 
@@ -63,15 +63,6 @@ function mapStateToProps ({ nav, error }) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    goBack: () => dispatch(NavigationActions.back()),
-    retryError: (actions) => dispatch(retryError(actions)),
-    clearError: () => dispatch(clearError())
-  }
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(ReduxNavigation)
