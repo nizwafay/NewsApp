@@ -6,7 +6,9 @@ import colors from './colors'
 const applicationStyles = {
   container: {
     flex: 1,
-    backgroundColor: colors.grey
+    backgroundColor: colors.grey,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   statusBar: colors.primary.dark,
   navigator: {

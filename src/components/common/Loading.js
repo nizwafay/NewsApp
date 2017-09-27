@@ -6,7 +6,7 @@ class Loading extends Component {
   render () {
     return (
       <ActivityIndicator
-        size='large'
+        size={this.props.size || 'large'}
         color={colors.primary.dark}
       />
     )
