@@ -9,12 +9,11 @@ import { colors } from '../../themes'
 class Sources extends Component {
   componentWillMount () {
     this.props.getSources('business')
-    this.props.getSources('politics')
-    this.props.getSources('technology')
   }
 
   render () {
     const {
+      getSources,
       businessSources, businessLoading,
       politicsSources, politicsLoading,
       technologySources, technologyLoading
@@ -28,6 +27,25 @@ class Sources extends Component {
         tabBarUnderlineStyle={{
           backgroundColor: colors.white87,
           height: 2
+        }}
+        onChangeTab={(event) => {
+          switch (event.i) {
+            case 0:
+              if (businessSources.length === 0 && !businessLoading) {
+                getSources('business')
+              }
+              break
+            case 1:
+              if (politicsSources.length === 0 && !politicsLoading) {
+                getSources('politics')
+              }
+              break
+            case 2:
+              if (technologySources.length === 0 && !technologyLoading) {
+                getSources('technology')
+              }
+              break
+          }
         }}
       >
         <SourcesFrame
