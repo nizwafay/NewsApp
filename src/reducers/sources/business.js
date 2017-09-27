@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   if (action.type === ERROR_THROWN) {
     return {
-      ...INITIAL_STATE,
+      ...state,
       loading: false
     }
   } else if (action.category === 'business') {
