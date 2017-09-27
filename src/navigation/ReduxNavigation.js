@@ -1,5 +1,5 @@
 import React from 'react'
-import { BackHandler, ToastAndroid } from 'react-native'
+import { BackHandler, Alert } from 'react-native'
 import { addNavigationHelpers, NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import AppNavigation from './AppNavigation'
@@ -15,7 +15,15 @@ class ReduxNavigation extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.error !== '') {
-      ToastAndroid.show(nextProps.error, ToastAndroid.SHORT)
+      Alert.alert(
+        null,
+        nextProps.error,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: () => console.log('OK Pressed')}
+        ],
+        { cancelable: false }
+      )
     }
   }
 
