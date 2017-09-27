@@ -1,7 +1,7 @@
 import {
   GET_ARTICLES,
   GET_ARTICLES_SUCCESS,
-  GET_ARTICLES_FAILED
+  ERROR_THROWN
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -21,9 +21,9 @@ export default (state = INITIAL_STATE, action) => {
         ...INITIAL_STATE,
         articles: action.articles
       }
-    case GET_ARTICLES_FAILED:
+    case ERROR_THROWN:
       return {
-        ...INITIAL_STATE,
+        ...state,
         loading: false
       }
     default:
