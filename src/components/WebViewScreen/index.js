@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, WebView, Text } from 'react-native'
+import { View, WebView, Text, ToastAndroid } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
 import Loading from '../common/Loading'
 
@@ -25,7 +26,10 @@ class WebViewScreen extends Component {
       <WebView
         source={{uri}}
         renderLoading={this.renderLoading}
-        renderError={() => <Text>ERROR</Text>}
+        onError={() => {
+          NavigationActions.back()
+          ToastAndroid.show('Error occured when open link.', ToastAndroid.SHORT)
+        }}
         startInLoadingState
       />
     )
